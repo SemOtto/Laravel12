@@ -111,7 +111,7 @@ test('tasks index page displays empty string for tasks without enddate', functio
     $responseContent = $response->getContent();
 
     // Zoek de rij met de task zonder enddate
-    $taskRowPattern = '/<tr[^>]*>.*?' . preg_quote((string) $task->id, '/') . '.*?<\/tr>/s';
+    $taskRowPattern = '/<tr[^>]*data-id="' . preg_quote((string) $task->id, '/') . '"[^>]*>(.*?)<\/tr>/s';
     preg_match($taskRowPattern, $responseContent, $matches);
 
     expect($matches)->not()->toBeEmpty('Task row not found in response');
