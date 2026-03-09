@@ -62,6 +62,8 @@ class TaskController extends Controller
     {
         $this->authorize('show task');
 
+        $task->load(['user', 'project', 'activity']);
+
         return view('admin.tasks.show', compact('task'));
     }
 
