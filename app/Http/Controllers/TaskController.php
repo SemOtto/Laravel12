@@ -120,7 +120,7 @@ class TaskController extends Controller
     {
         $this->authorize('delete task');
 
-        // $task->delete();
-        return response()->json(['message' => 'Task deleted']);
+        $task->delete();
+        return redirect()->route('tasks.index')->with('status', 'Taak: ' . $task->task . ' is verwijderd');
     }
 }
