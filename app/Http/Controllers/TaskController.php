@@ -74,7 +74,14 @@ class TaskController extends Controller
     {
         $this->authorize('edit task');
 
-        return view('admin.tasks.edit', compact('task'));
+        $task->load(['user', 'project', 'activity']);
+
+        return view('admin.tasks.edit', [
+            'task' => $task,
+            'users' => \App\Models\User::all(),
+            'projects' => \App\Models\Project::all(),
+            'activities' => \App\Models\Activity::all(),
+        ]);
     }
 
     /**
