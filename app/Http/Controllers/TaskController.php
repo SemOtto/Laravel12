@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Http\Requests\TaskStoreRequest;
 
 class TaskController extends Controller
 {
@@ -28,18 +29,30 @@ class TaskController extends Controller
     {
         $this->authorize('create task');
 
-        return view('admin.tasks.create');
+        return view('admin.tasks.create', [
+            'users' => \App\Models\User::all(),
+            'projects' => \App\Models\Project::all(),
+            'activities' => \App\Models\Activity::all(),
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TaskStoreRequest $request)
     {
         $this->authorize('create task');
 
-        // Implementation for storing a task
-        return response()->json(['message' => 'Task created']);
+        $task = new Task();
+        $task->task = $request->task;
+        $task->begindate = $request->begindate . ' 00:00:00';
+        $task->enddate = $request->enddate ? $request->enddate . ' 00:00:00' : null;
+        $task->user_id = $request->user_id;
+        $task->project_id = $request->project_id;
+        $task->activity_id = $request->activity_id;
+        $task->save();
+
+        return redirect()->route('tasks.index')->with('status', 'Taak: ' . $task->task . ' is aangemaakt');
     }
 
     /**

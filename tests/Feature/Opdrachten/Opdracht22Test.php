@@ -37,8 +37,8 @@ test('task is stored correctly in the database when using correct data and showi
     // Controleer of de gegevens correct in de database zijn opgeslagen
     $this->assertDatabaseHas('tasks', [
         'task' => $taskData['task'],
-        'begindate' => $taskData['begindate'],
-        'enddate' => $taskData['enddate'],
+        'begindate' => $taskData['begindate'] . ' 00:00:00',
+        'enddate' => $taskData['enddate'] . ' 00:00:00',
         'user_id' => $taskData['user_id'],
         'project_id' => $taskData['project_id'],
         'activity_id' => $taskData['activity_id'],
