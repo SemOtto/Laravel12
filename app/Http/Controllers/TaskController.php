@@ -108,6 +108,8 @@ class TaskController extends Controller
     {
         $this->authorize('delete task');
 
+        $task->load(['user', 'project', 'activity']);
+
         return view('admin.tasks.delete', compact('task'));
     }
 
