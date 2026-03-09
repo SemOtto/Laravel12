@@ -40,8 +40,8 @@ test('task is updated correctly in the database when using correct data and show
     $this->assertDatabaseHas('tasks', [
         'id' => $task->id,
         'task' => $updatedTaskData['task'],
-        'begindate' => $updatedTaskData['begindate'],
-        'enddate' => $updatedTaskData['enddate'],
+        'begindate' => $updatedTaskData['begindate'] . ' 00:00:00',
+        'enddate' => $updatedTaskData['enddate'] . ' 00:00:00',
         'user_id' => $updatedTaskData['user_id'],
         'project_id' => $updatedTaskData['project_id'],
         'activity_id' => $updatedTaskData['activity_id'],

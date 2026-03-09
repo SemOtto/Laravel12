@@ -15,8 +15,6 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $this->authorize('index task');
-
         return view('admin.tasks.index', [
             'tasks' => Task::with(['user', 'project', 'activity'])->paginate(15)
         ]);
@@ -87,12 +85,20 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Task $task)
+    public function update(TaskStoreRequest $request, Task $task)
     {
         $this->authorize('edit task');
 
-        // Implementation for updating a task
-        return response()->json(['message' => 'Task updated']);
+        $task->task = $request->task;
+        // Only append time if the date string doesn't already contain a time component
+        $task->begindate = strpos($request->begindate, ' ') === false ? $request->begindate . ' 00:00:00' : $request->begindate;
+        $task->enddate = $request->enddate ? (strpos($request->enddate, ' ') === false ? $request->enddate . ' 00:00:00' : $request->enddate) : null;
+        $task->user_id = $request->user_id;
+        $task->project_id = $request->project_id;
+        $task->activity_id = $request->activity_id;
+        $task->save();
+
+        return redirect()->route('tasks.index')->with('status', 'Taak: ' . $task->task . ' is gewijzigd');
     }
 
     /**

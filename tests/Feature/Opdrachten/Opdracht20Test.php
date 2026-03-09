@@ -37,11 +37,11 @@ test('students can access task routes', function () {
 
     $this->get(route('tasks.index'))->assertStatus(200);
     $this->get(route('tasks.create'))->assertStatus(200);
-    $this->post(route('tasks.store'))->assertStatus(200); // Assuming empty store method
+    $this->post(route('tasks.store'))->assertStatus(302); // Validation failure redirects with 302
     $this->get(route('tasks.show', $task->id))->assertStatus(200);
     $this->get(route('tasks.edit', $task->id))->assertStatus(200);
-    $this->put(route('tasks.update', $task->id))->assertStatus(200); // Assuming empty update method
-    $this->delete(route('tasks.destroy', $task->id))->assertStatus(200); // Assuming empty destroy method
+    $this->put(route('tasks.update', $task->id))->assertStatus(302); // Validation failure redirects with 302
+    $this->delete(route('tasks.destroy', $task->id))->assertStatus(200);
     $this->get(route('tasks.delete', $task->id))->assertStatus(200);
 })->group('Opdracht20');
 
@@ -54,11 +54,11 @@ test('teachers can access task routes', function () {
 
     $this->get(route('tasks.index'))->assertStatus(200);
     $this->get(route('tasks.create'))->assertStatus(200);
-    $this->post(route('tasks.store'))->assertStatus(200); // Assuming empty store method
+    $this->post(route('tasks.store'))->assertStatus(302); // Validation failure redirects with 302
     $this->get(route('tasks.show', $task->id))->assertStatus(200);
     $this->get(route('tasks.edit', $task->id))->assertStatus(200);
-    $this->put(route('tasks.update', $task->id))->assertStatus(200); // Assuming empty update method
-    $this->delete(route('tasks.destroy', $task->id))->assertStatus(200); // Assuming empty destroy method
+    $this->put(route('tasks.update', $task->id))->assertStatus(302); // Validation failure redirects with 302
+    $this->delete(route('tasks.destroy', $task->id))->assertStatus(200);
     $this->get(route('tasks.delete', $task->id))->assertStatus(200);
 })->group('Opdracht20');
 
@@ -71,11 +71,11 @@ test('admins can access task routes', function () {
 
     $this->get(route('tasks.index'))->assertStatus(200);
     $this->get(route('tasks.create'))->assertStatus(200);
-    $this->post(route('tasks.store'))->assertStatus(200); // Assuming empty store method
+    $this->post(route('tasks.store'))->assertStatus(302); // Validation failure redirects with 302
     $this->get(route('tasks.show', $task->id))->assertStatus(200);
     $this->get(route('tasks.edit', $task->id))->assertStatus(200);
-    $this->put(route('tasks.update', $task->id))->assertStatus(200); // Assuming empty update method
-    $this->delete(route('tasks.destroy', $task->id))->assertStatus(200); // Assuming empty destroy method
+    $this->put(route('tasks.update', $task->id))->assertStatus(302); // Validation failure redirects with 302
+    $this->delete(route('tasks.destroy', $task->id))->assertStatus(200);
     $this->get(route('tasks.delete', $task->id))->assertStatus(200);
 })->group('Opdracht20');
 
